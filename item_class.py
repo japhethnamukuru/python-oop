@@ -1,3 +1,5 @@
+import csv
+
 class Item():
     # class attribute
     pay_rate = 0
@@ -16,11 +18,37 @@ class Item():
         #actions
         Item.all.append(self)
 
-
     # get the price
     def getPrice(self):
         return self.price * self.pay_rate
 
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('items.csv', 'r') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+        
+        for new_item in items:
+            # print(new_item)
+            Item(
+                name = new_item.get('item'),
+                price = float(new_item.get('price')),
+                quantity = int(new_item.get('quantity'))
+            )
+
+    #  satic method
+    @staticmethod
+    def is_integer(num):
+        if isinstance(num, float):
+            return num.is_integer()
+        elif isinstance(num, int):
+            return True
+        else:
+            return False
+
     # represent objects
     def __repr__(self) -> str:
         return f"{self.name}, {self.price}, {self.quantity}"
+
+# Item.instantiate_from_csv()
+print(Item.is_integer(2.0))
