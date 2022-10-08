@@ -48,7 +48,7 @@ class Item():
 
     # represent objects
     def __repr__(self) -> str:
-        return f"{self.name}, {self.price}, {self.quantity}"
+        return f"{self.__class__.__name__}({self.name}, {self.price}, {self.quantity})"
 
 # Item.instantiate_from_csv()
-print(Item.is_integer(2.0))
+# print(Item.is_integer(2.0))
